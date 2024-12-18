@@ -1,5 +1,5 @@
 import os
-from transformers import AutoTokenizer, AutoModelForCausalLM
+from transformers import AutoTokenizer, AutoModelForCausalLM, set_seed
 import torch
 import argparse
 from load_data import load_and_prepare_data, create_csv
