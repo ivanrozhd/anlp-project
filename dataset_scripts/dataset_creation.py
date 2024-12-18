@@ -40,14 +40,14 @@ def generate_response(tokenizer, model, question, max_new_tokens=6, layer_step=5
     hidden_states_1 = []
     hidden_states_16 = []
     hidden_states_32 = []
-    print(len(outputs.hidden_states))
-    print(len(outputs.hidden_states[1]))
-    print(len(outputs.hidden_states[0]))
 
-    hidden_state_1 = outputs.hidden_states[1][1].mean(dim=1)
-    hidden_state_16 = outputs.hidden_states[1][16].mean(dim=1)
-    hidden_state_32 = outputs.hidden_states[1][32].mean(dim=1)
 
+    #hidden_state_1 = outputs.hidden_states[1][1].mean(dim=1)
+    #hidden_state_16 = outputs.hidden_states[1][16].mean(dim=1)
+    #hidden_state_32 = outputs.hidden_states[1][32].mean(dim=1)
+    hidden_state_1 = outputs.hidden_states[1][1][:, -1, :]
+    hidden_state_32 = outputs.hidden_states[1][32][:, -1, :]
+    hidden_state_16 = outputs.hidden_states[1][16][:, -1, :]
 
     hidden_states_1.append(hidden_state_1.squeeze().tolist())
     hidden_states_16.append(hidden_state_16.squeeze().tolist())
@@ -101,6 +101,8 @@ def main(access_token, model_name,file_path):
 
         # Print the question
         print(f"Question {i+1}: {question} {response}; GT: {references[i]}")
+
+
 
 
     # Create a CSV file with the data
