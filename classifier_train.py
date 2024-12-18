@@ -40,13 +40,13 @@ def main( hidden_states_file, labels_file, arc, layer):
 
     if arc == "bnn":
         train_classifier_bnn(classifier, train_loader, optimizer, criterion, epochs=5, device=device)
-        test_loss, test_accuracy = evaluate_classifier_bnn(classifier, test_loader, criterion, device=device)
+        test_loss, test_accuracy = evaluate_classifier_bnn(classifier, test_loader, criterion, layer, device=device)
         print(f"Test Loss: {test_loss:.4f}")
         print(f"Test Accuracy: {test_accuracy * 100:.2f}%")
 
     elif arc == "saplma":
         train_classifier_saplma(classifier, train_loader, optimizer, criterion, epochs=5, device=device)
-        evaluate_classifier_saplma(classifier, test_loader, device=device)
+        evaluate_classifier_saplma(classifier, test_loader, layer, device=device)
 
 
 
