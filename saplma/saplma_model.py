@@ -82,7 +82,7 @@ def create_csv_for_ece(y_true, y_pred):
     dict = {'prediction': y_pred, 'label': y_true}
 
     df_chatgpt4 = pd.DataFrame(dict)
-    df_chatgpt4.to_csv(os.path.join(data_folder, 'saplma_ece.csv'), index=False)
+    df_chatgpt4.to_csv(os.path.join(data_folder, 'saplma_ece_32.csv'), index=False)
 
 
 

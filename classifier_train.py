@@ -11,7 +11,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 def main( hidden_states_file, labels_file, arc, layer):
 
-    if layer != 1 or layer != 16 or layer != 32:
+    if layer not in (1, 16, 32):
         print("Invalid layer")
         return "Invalid layer"
     # Load data
