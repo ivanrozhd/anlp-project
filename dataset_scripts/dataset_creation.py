@@ -99,8 +99,6 @@ def main(access_token, model_name,file_path):
         # Print the question
         print(f"Question {i+1}: {question} {response}; GT: {references[i]}")
 
-        if i == 9:
-            break
 
     # Create a CSV file with the data
     create_csv(questions, references, responses, hidden_states_1, hidden_states_16, hidden_states_32, logits_of_answers)
