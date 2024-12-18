@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as np
 import argparse
+from dataset_scripts.load_data import create_logits_samples
+
 
 
 
@@ -56,12 +58,9 @@ def main(data):
 
 
 
-
-
-
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--file_data", type=str, required=True)
     args = parser.parse_args()
-    main(args.file_data)
+    file_path = args.file_data
+    main(file_path)

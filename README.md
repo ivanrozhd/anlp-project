@@ -27,6 +27,13 @@ python classifier_train.py  --hidden_states_path dataset_training.csv --labels_f
 
 ```
 
+# Help method to concatenate logits with labels
+
+```shell
+python logits_label.py  --label_data data/Short_Answer_Evaluation_Results.csv  --logits_data dataset_scripts/data/dataset_logits.csv 
+
+```
+
 # Calculate ECE for the model
 
 returns the estimated calibration error for the model
@@ -34,6 +41,7 @@ returns the estimated calibration error for the model
 Example command:
 ```shell
 python ece-evaluation.py  --file_data bnn/data/bnn_ece_1.csv 
+
 ```
 
 

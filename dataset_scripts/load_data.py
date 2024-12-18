@@ -79,3 +79,27 @@ def extract_hidden_states_with_labels(hidden_states_file, labels_file, layer):
             hidden_states.append(row[f'hidden_state_{layer}'])
 
     return hidden_states, labels
+
+
+def create_logits_samples(matches_file_path, logits_file_path):
+    logits_data = pd.read_csv(logits_file_path)
+    matches_data = pd.read_csv(matches_file_path)
+
+    if not logits_data.index.equals(matches_data.index):
+        logits_data.reset_index(drop=True, inplace=True)
+        matches_data.reset_index(drop=True, inplace=True)
+
+    # Combine the two datasets
+    combined_data = pd.DataFrame({
+        'prediction': logits_data['logits_of_answers'],
+        'label': matches_data['matches']
+    })
+
+    # Extract the last 20% of rows
+    last_20_percent = combined_data.iloc[-int(0.2 * len(combined_data)):]
+
+    # Optionally save the results to a new CSV file
+    last_20_percent.to_csv("data/logits_ece.csv", index=False)
+
+    return last_20_percent
+
