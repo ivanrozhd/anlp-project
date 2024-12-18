@@ -28,7 +28,7 @@ def split_data(hidden_states, labels, test_size=0.2, random_state=42):
 
     # Split data
     X_train, X_test, y_train, y_test = train_test_split(
-        hidden_states, labels, test_size=test_size, random_state=random_state
+        hidden_states, labels, test_size=test_size, random_state=random_state,shuffle=False
     )
     # Convert to PyTorch tensors
     return (

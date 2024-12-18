@@ -21,7 +21,7 @@ Example command:
 -labels_file - csv file with labels evaluated by chatgpt4
 -arc - architecture of the model (saplma or bnn)
 ```shell
-python classifier_train.py  --hidden_states_path dataset_training.csv --labels_file Evaluation_of_Responses.csv --arc saplma/bnn
+python classifier_train.py  --hidden_states_path dataset_training.csv --labels_file Evaluation_of_Responses.csv --arc saplma/bnn --layer 1/16/32
 ```
 
 

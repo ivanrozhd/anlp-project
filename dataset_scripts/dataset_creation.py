@@ -37,22 +37,25 @@ def generate_response(tokenizer, model, question, max_new_tokens=6, layer_step=5
     )
 
     # Extract hidden states of every 4th layer - 0, 4, 8, 12, 16 and etc.
-    hidden_states = []
-    total_layers = len(outputs.hidden_states[1]) #16 - 20 - 24 - 28 - 32
+    hidden_states_1 = []
+    hidden_states_16 = []
+    hidden_states_32 = []
+
+    hidden_state_1 = outputs.hidden_states[1][1].mean(dim=1)
+    hidden_state_16 = outputs.hidden_states[1][16].mean(dim=1)
+    hidden_state_32 = outputs.hidden_states[1][32].mean(dim=1)
 
 
-    #for i in range(0, total_layers, layer_step):
-        #hidden_state = outputs.hidden_states[1][i+1].mean(dim=1)
-        #hidden_states.append(hidden_state.squeeze().tolist())
+    hidden_states_1.append(hidden_state_1.squeeze().tolist())
+    hidden_states_16.append(hidden_state_16.squeeze().tolist())
+    hidden_states_32.append(hidden_state_32.squeeze().tolist())
 
-    hidden_state = outputs.hidden_states[1][16].mean(dim=1)
-    hidden_states.append(hidden_state.squeeze().tolist())
 
     # Decode the generated sequence
     generated_text = tokenizer.decode(outputs.sequences[0], skip_special_tokens=True)
     generated_response = generated_text.split(question, 1)[-1].strip()
 
-    return generated_response, hidden_states, outputs
+    return generated_response, outputs, hidden_states_1, hidden_states_16, hidden_states_32
 
 
 def main(access_token, model_name,file_path):
@@ -68,15 +71,20 @@ def main(access_token, model_name,file_path):
     print(length_set, max(length_set))
     # Generate and evaluate responses
     responses = []
-    hidden_states = []
+    hidden_states_1 = []
+    hidden_states_16 = []
+    hidden_states_32 = []
     logits_of_answers = []
 
     for i, question in enumerate(questions):
 
         # Generate a response
-        response, states, outputs = generate_response(tokenizer, model, question)
+        response, outputs, hidden_state_1, hidden_state_16, hidden_state_32  = generate_response(tokenizer, model, question)
         responses.append(response)
-        hidden_states.append(states)
+        hidden_states_1.append(hidden_state_1)
+        hidden_states_16.append(hidden_state_16)
+        hidden_states_32.append(hidden_state_32)
+
 
         # logits extraction
         question_length = len(tokenizer(question)['input_ids'])
@@ -91,8 +99,11 @@ def main(access_token, model_name,file_path):
         # Print the question
         print(f"Question {i+1}: {question} {response}; GT: {references[i]}")
 
+        if i == 9:
+            break
+
     # Create a CSV file with the data
-    create_csv(questions, references, responses, hidden_states, logits_of_answers)
+    create_csv(questions, references, responses, hidden_states_1, hidden_states_16, hidden_states_32, logits_of_answers)
 
 
 if __name__ == "__main__":

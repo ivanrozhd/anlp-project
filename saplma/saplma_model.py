@@ -2,6 +2,8 @@ import numpy as np
 import torch.nn as nn
 import torch
 from sklearn.metrics import accuracy_score
+import os
+import pandas as pd
 
 # SAPLMA Classifier from https://arxiv.org/abs/2304.13734
 class SaplmaClassifier(nn.Module):
@@ -52,6 +54,7 @@ def evaluate_classifier_saplma(classifier, test_loader, device="cpu"):
 
     y_true = torch.cat(y_true)
     y_pred = torch.cat(y_pred)
+    create_csv_for_ece(y_true, y_pred)
 
     y_pred = y_pred > 0.5
     y_pred = y_pred.flatten()
@@ -61,6 +64,26 @@ def evaluate_classifier_saplma(classifier, test_loader, device="cpu"):
 
     print(f"Accuracy: {accuracy}")
     return accuracy
+
+
+def create_csv_for_ece(y_true, y_pred):
+    data_folder = os.path.join(os.path.dirname(__file__), 'data')
+    if not os.path.exists(data_folder):
+        os.makedirs(data_folder)
+
+    if isinstance(y_true, torch.Tensor):
+        y_true = y_true.cpu().numpy()
+    if isinstance(y_pred, torch.Tensor):
+        y_pred = y_pred.cpu().numpy()
+
+    y_true = np.ravel(y_true)
+    y_pred = np.ravel(y_pred)
+
+    dict = {'prediction': y_pred, 'label': y_true}
+
+    df_chatgpt4 = pd.DataFrame(dict)
+    df_chatgpt4.to_csv(os.path.join(data_folder, 'saplma_ece.csv'), index=False)
+
 
 
 

@@ -1,6 +1,6 @@
 import torch
 from model_utils import load_model_and_tokenizer, extract_hidden_states, split_data
-from saplma_model import SaplmaClassifier, train_classifier_saplma, evaluate_classifier_saplma
+from saplma.saplma_model import SaplmaClassifier, train_classifier_saplma, evaluate_classifier_saplma
 from bnn.bnn import BayesianSAPLMA, train_classifier_bnn, evaluate_classifier_bnn
 from dataset_scripts.load_data import extract_hidden_states_with_labels
 from torch.utils.data import DataLoader, TensorDataset
@@ -9,10 +9,13 @@ import argparse
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-def main( hidden_states_file, labels_file, arc):
-    # Load data
-    hidden_states, labels = extract_hidden_states_with_labels(hidden_states_file,labels_file) # TODO: Ask chatgpt to label data, if short_answer matches response, label is 1, else 0
+def main( hidden_states_file, labels_file, arc, layer):
 
+    if layer != 1 or layer != 16 or layer != 32:
+        print("Invalid layer")
+        return "Invalid layer"
+    # Load data
+    hidden_states, labels = extract_hidden_states_with_labels(hidden_states_file,labels_file, layer=layer)
     input_size = 4096 #len(hidden_states[0])
 
     if arc == "bnn":
@@ -24,6 +27,8 @@ def main( hidden_states_file, labels_file, arc):
     else:
         print("Invalid architecture")
         return "Invalid architecture"
+
+
     criterion = nn.BCELoss()
     optimizer = torch.optim.Adam(classifier.parameters(), lr=0.00001)
 
@@ -50,10 +55,12 @@ if __name__ == "__main__":
     parser.add_argument("--hidden_states_path", type=str, required=True)
     parser.add_argument("--labels_file", type=str, required=True)
     parser.add_argument("--arc", type=str, required=True)
+    parser.add_argument("--layer", type=int, required=True)
     args = parser.parse_args()
     print(f"Using device: {device}")
     hidden_states = args.hidden_states_path
     labels = args.labels_file
     arc = args.arc
+    layer = args.layer
 
-    main(hidden_states, labels, arc)
+    main(hidden_states, labels, arc, layer)
