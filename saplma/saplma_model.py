@@ -40,7 +40,7 @@ def train_classifier_saplma(classifier, train_loader, optimizer, criterion, epoc
             optimizer.step()
         print(f"Epoch {epoch+1}/{epochs}, Loss: {loss.item()}")
 
-def evaluate_classifier_saplma(classifier, test_loader, device="cpu"):
+def evaluate_classifier_saplma(classifier, test_loader, layer, device="cpu"):
     classifier.eval()
     y_true = []
     y_pred = []
@@ -54,7 +54,7 @@ def evaluate_classifier_saplma(classifier, test_loader, device="cpu"):
 
     y_true = torch.cat(y_true)
     y_pred = torch.cat(y_pred)
-    create_csv_for_ece(y_true, y_pred)
+    create_csv_for_ece(y_true, y_pred, layer=1)
 
     y_pred = y_pred > 0.5
     y_pred = y_pred.flatten()
@@ -66,7 +66,7 @@ def evaluate_classifier_saplma(classifier, test_loader, device="cpu"):
     return accuracy
 
 
-def create_csv_for_ece(y_true, y_pred):
+def create_csv_for_ece(y_true, y_pred, layer):
     data_folder = os.path.join(os.path.dirname(__file__), 'data')
     if not os.path.exists(data_folder):
         os.makedirs(data_folder)
@@ -82,7 +82,7 @@ def create_csv_for_ece(y_true, y_pred):
     dict = {'prediction': y_pred, 'label': y_true}
 
     df_chatgpt4 = pd.DataFrame(dict)
-    df_chatgpt4.to_csv(os.path.join(data_folder, 'saplma_ece_32.csv'), index=False)
+    df_chatgpt4.to_csv(os.path.join(data_folder, f'saplma_ece_{layer}.csv'), index=False)
 
 
 

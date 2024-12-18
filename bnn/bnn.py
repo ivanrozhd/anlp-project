@@ -47,7 +47,7 @@ def train_classifier_bnn(classifier, train_loader, optimizer, criterion, epochs=
         print(f"Epoch {epoch+1}/{epochs}, Loss: {loss.item()}")
 
 
-def evaluate_classifier_bnn(classifier, test_loader, criterion, device="cuda", num_samples=10):
+def evaluate_classifier_bnn(classifier, test_loader, criterion,layer, device="cuda", num_samples=10):
     classifier.eval()
     y_true = []
     y_pred = []
@@ -76,7 +76,7 @@ def evaluate_classifier_bnn(classifier, test_loader, criterion, device="cuda", n
     y_pred = torch.cat(y_pred)
 
     # Create CSV for ECE
-    create_csv_for_ece(y_true, y_pred)
+    create_csv_for_ece(y_true, y_pred,layer)
 
     # Calculate accuracy
     y_pred_binary = y_pred > 0.5  # Threshold at 0.5
@@ -90,7 +90,7 @@ def evaluate_classifier_bnn(classifier, test_loader, criterion, device="cuda", n
 
 
 
-def create_csv_for_ece(y_true, y_pred):
+def create_csv_for_ece(y_true, y_pred, layer):
 
 
     data_folder = os.path.join(os.path.dirname(__file__), 'data')
@@ -112,5 +112,5 @@ def create_csv_for_ece(y_true, y_pred):
 
     # Create DataFrame and save
     df_chatgpt4 = pd.DataFrame(data_dict)
-    df_chatgpt4.to_csv(os.path.join(data_folder, 'bnn_ece.csv'), index=False)
+    df_chatgpt4.to_csv(os.path.join(data_folder, f'bnn_ece_{layer}.csv'), index=False)
 

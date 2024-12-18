@@ -48,7 +48,7 @@ def create_csv(questions, short_answers, responses, hidden_states_1, hidden_stat
     dict = {'questions': questions, 'short_answers': short_answers, 'responses': responses}
 
     df_chatgpt4 = pd.DataFrame(dict)
-    df_chatgpt4.to_csv(os.path.join(data_folder, 'chatgpt4_evaluation.csv'))
+    df_chatgpt4.to_csv(os.path.join(data_folder, 'data/chatgpt4_evaluation.csv'))
 
     dict[f'hidden_state_{1}'] = hidden_states_1
     dict[f'hidden_state_{16}'] = hidden_states_16
@@ -56,12 +56,12 @@ def create_csv(questions, short_answers, responses, hidden_states_1, hidden_stat
     df = pd.DataFrame(dict)
 
     # saving the dataframe
-    df.to_csv( os.path.join(data_folder, 'dataset_hidden_layers.csv'))
+    df.to_csv(os.path.join(data_folder, 'data/dataset_hidden_layers.csv'))
 
     dict1 = {'questions': questions, 'short_answers': short_answers, 'responses': responses,
              'logits_of_answers': logits_of_answers}
     df_logits = pd.DataFrame(dict1)
-    df_logits.to_csv(os.path.join(data_folder, 'dataset_logits.csv'))
+    df_logits.to_csv(os.path.join(data_folder, 'data/dataset_logits.csv'))
 
 
 def extract_hidden_states_with_labels(hidden_states_file, labels_file, layer):

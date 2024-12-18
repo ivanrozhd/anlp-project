@@ -62,8 +62,6 @@ def main(data):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--saplma_data", type=str, required=True)
-    #parser.add_argument("--bnn-data", type=str, required=True)
-    #parser.add_argument("--logits-data", type=str, required=True)
+    parser.add_argument("--file_data", type=str, required=True)
     args = parser.parse_args()
-    main(args.saplma_data)
+    main(args.file_data)
