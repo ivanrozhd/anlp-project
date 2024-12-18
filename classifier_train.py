@@ -45,7 +45,7 @@ def main( hidden_states_file, labels_file, arc, layer):
         print(f"Test Accuracy: {test_accuracy * 100:.2f}%")
 
     elif arc == "saplma":
-        train_classifier_saplma(classifier, train_loader, optimizer, criterion, epochs=5, device=device)
+        train_classifier_saplma(classifier, train_loader, optimizer, criterion, epochs=85, device=device)
         evaluate_classifier_saplma(classifier, test_loader, layer, device=device)
 
 

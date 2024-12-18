@@ -42,12 +42,10 @@ def generate_response(tokenizer, model, question, max_new_tokens=6, layer_step=5
     hidden_states_32 = []
 
 
-    #hidden_state_1 = outputs.hidden_states[1][1].mean(dim=1)
-    #hidden_state_16 = outputs.hidden_states[1][16].mean(dim=1)
-    #hidden_state_32 = outputs.hidden_states[1][32].mean(dim=1)
-    hidden_state_1 = outputs.hidden_states[1][1][:, -1, :]
-    hidden_state_32 = outputs.hidden_states[1][32][:, -1, :]
-    hidden_state_16 = outputs.hidden_states[1][16][:, -1, :]
+    hidden_state_1 = outputs.hidden_states[1][1].mean(dim=1)
+    hidden_state_16 = outputs.hidden_states[1][16].mean(dim=1)
+    hidden_state_32 = outputs.hidden_states[1][32].mean(dim=1)
+
 
     hidden_states_1.append(hidden_state_1.squeeze().tolist())
     hidden_states_16.append(hidden_state_16.squeeze().tolist())

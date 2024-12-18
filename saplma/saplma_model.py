@@ -7,16 +7,20 @@ import pandas as pd
 
 # SAPLMA Classifier from https://arxiv.org/abs/2304.13734
 class SaplmaClassifier(nn.Module):
-    def __init__(self, input_size):
+    def __init__(self, input_size, dropout=0.2):
         super(SaplmaClassifier, self).__init__()
 
         self.network = nn.Sequential(
+
             nn.Linear(input_size, 256),
             nn.ReLU(),
+            nn.Dropout(dropout),
             nn.Linear(256, 128),
             nn.ReLU(),
+            nn.Dropout(dropout),
             nn.Linear(128, 64),
             nn.ReLU(),
+            nn.Dropout(dropout),
             nn.Linear(64, 1),
             nn.Sigmoid()
         )
@@ -54,7 +58,7 @@ def evaluate_classifier_saplma(classifier, test_loader, layer, device="cpu"):
 
     y_true = torch.cat(y_true)
     y_pred = torch.cat(y_pred)
-    create_csv_for_ece(y_true, y_pred, layer=1)
+    create_csv_for_ece(y_true, y_pred, layer)
 
     y_pred = y_pred > 0.5
     y_pred = y_pred.flatten()
