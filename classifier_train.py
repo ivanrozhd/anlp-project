@@ -35,8 +35,8 @@ def main( hidden_states_file, labels_file, arc, layer):
     X_train, X_test, y_train, y_test = split_data(hidden_states, labels)
     train_dataset = TensorDataset(X_train, y_train)
     test_dataset = TensorDataset(X_test, y_test)
-    train_loader = DataLoader(train_dataset, batch_size=256, shuffle=True)
-    test_loader = DataLoader(test_dataset, batch_size=256)
+    train_loader = DataLoader(train_dataset, batch_size=512, shuffle=True)
+    test_loader = DataLoader(test_dataset, batch_size=512)
 
     if arc == "bnn":
         train_classifier_bnn(classifier, train_loader, optimizer, criterion, epochs=5, device=device)
