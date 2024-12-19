@@ -1,9 +1,16 @@
-# ITU_ANLP_Final
+# anlp-deep-learning-project
 This is the repository of the course project of Advanced Natural Language Processing and Deep Learning (Autumn 2024) at IT University of Copenhagen.
 
 # Group Name and Members
-Group 8 bilibili: Ivan Rozhdestvenskii, Levente András Wallis and Shiling Deng (Lost during the project)
+Group 8 bilibili: Ivan Rozhdestvenskii and Levente András Wallis 
 
+Following is the structure of the project and steps to run the code:
+
+bnn - contains the code for Bayesian Neural Network and data folder with evluation results for ECE calculation 
+saplma - contains the code for SAPLMA and data folder with evluation results for ECE calculation
+data - contains the data files
+dataset_scripts - contains the scripts for dataset creation based on the dataset provided (natural_questions_sample.csv)
+ece - contains the code for ECE calculation
 
 # Create three datasets: chatgpt4_evaluation.csv, dataset_hidden_layers.csv and dataset_logits.csv
 chatgpt4_evaluation.csv - contains the questions, short answers (gt) and responses from the pretrained model - for evaluation purposes
@@ -15,6 +22,7 @@ Example command:
 python dataset_creation.py  --token gt_dasdasdasdasdsafrgwr --model meta-llama/Llama-3.1-8B-Instruct --filepath data/natural_questions_sample.csv
 ```
 
+evaluated.csv - a csv file with labels for the responses from chatgpt4 (1 - correct, 0 - incorrect)
 
 # Train a SAPLMA/BayseianSAPLMA model for classification of the questions whether the model is able to answer them
 Example command:
@@ -23,14 +31,14 @@ Example command:
 -arc - architecture of the model (saplma or bnn)
 -layer - layer of the model (1, 16, 32)
 ```shell
-python classifier_train.py  --hidden_states_path dataset_training.csv --labels_file Evaluation_of_Responses.csv --arc saplma/bnn --layer 1/16/32
+python classifier_train.py  --hidden_states_path dataset_hidden_layers.csv --labels_file evaluated.csv --arc saplma/bnn --layer 1/16/32
 
 ```
 
 # Help method to concatenate logits with labels
 
 ```shell
-python logits_label.py  --label_data data/Short_Answer_Evaluation_Results.csv  --logits_data dataset_scripts/data/dataset_logits.csv 
+python logits_label.py  --label_data evaluated.csv  --logits_data dataset_logits.csv 
 
 ```
 
@@ -40,7 +48,7 @@ returns the estimated calibration error for the model
 
 Example command:
 ```shell
-python ece-evaluation.py  --file_data bnn/data/bnn_ece_1.csv 
+python ece-evaluation.py  --file_data bnn_ece_1.csv 
 
 ```
 
