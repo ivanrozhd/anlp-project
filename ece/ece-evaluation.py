@@ -4,6 +4,7 @@ import argparse
 from dataset_scripts.load_data import create_logits_samples
 
 
+# ECE calculation based on the code https://towardsdatascience.com/expected-calibration-error-ece-a-step-by-step-visual-explanation-with-python-code-c3e9aa12937d
 
 
 def prepare_data(file_path):

@@ -1,5 +1,4 @@
 import torch
-from model_utils import load_model_and_tokenizer, extract_hidden_states, split_data
 from saplma.saplma_model import SaplmaClassifier, train_classifier_saplma, evaluate_classifier_saplma
 from bnn.bnn import BayesianSAPLMA, train_classifier_bnn, evaluate_classifier_bnn
 from dataset_scripts.load_data import extract_hidden_states_with_labels
@@ -39,7 +38,7 @@ def main( hidden_states_file, labels_file, arc, layer):
     test_loader = DataLoader(test_dataset, batch_size=512)
 
     if arc == "bnn":
-        train_classifier_bnn(classifier, train_loader, optimizer, criterion, epochs=85, device=device)
+        train_classifier_bnn(classifier, train_loader, optimizer, criterion, epochs=5, device=device)
         test_loss, test_accuracy = evaluate_classifier_bnn(classifier, test_loader, criterion, layer, device=device)
         print(f"Test Loss: {test_loss:.4f}")
         print(f"Test Accuracy: {test_accuracy * 100:.2f}%")

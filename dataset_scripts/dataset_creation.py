@@ -36,7 +36,7 @@ def generate_response(tokenizer, model, question, max_new_tokens=6, layer_step=5
         pad_token_id=tokenizer.eos_token_id
     )
 
-    # Extract hidden states of every 4th layer - 0, 4, 8, 12, 16 and etc.
+    # Extract hidden states from specific layers
     hidden_states_1 = []
     hidden_states_16 = []
     hidden_states_32 = []
@@ -61,7 +61,6 @@ def generate_response(tokenizer, model, question, max_new_tokens=6, layer_step=5
 
 def main(access_token, model_name,file_path):
 
-    # Load and prepare data
     questions, references = load_and_prepare_data(file_path)
 
     # Initialize models

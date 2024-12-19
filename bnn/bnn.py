@@ -7,7 +7,7 @@ import os
 import numpy as np
 import pandas as pd
 
-
+# SAPLMA but with Bayesian layers https://arxiv.org/abs/2304.13734
 @variational_estimator
 class BayesianSAPLMA(nn.Module):
     def __init__(self, input_size, dropout=0.2):
@@ -74,15 +74,13 @@ def evaluate_classifier_bnn(classifier, test_loader, criterion,layer, device="cu
             y_true.append(y_batch)
             y_pred.append(pred_mean)
 
-    # Concatenate all predictions and true labels
+
     y_true = torch.cat(y_true)
     y_pred = torch.cat(y_pred)
 
-    # Create CSV for ECE
-    create_csv_for_ece(y_true, y_pred,layer)
+    create_csv_for_ece(y_true, y_pred,layer) # Create CSV for ECE calculation
 
-    # Calculate accuracy
-    y_pred_binary = y_pred > 0.5  # Threshold at 0.5
+    y_pred_binary = y_pred > 0.5
     y_pred_binary = y_pred_binary.flatten()
     correct_predictions = (y_pred_binary == y_true).sum()
 
@@ -106,14 +104,11 @@ def create_csv_for_ece(y_true, y_pred, layer):
     if isinstance(y_pred, torch.Tensor):
         y_pred = y_pred.cpu().numpy()
 
-    # Ensure arrays are 1D
     y_true = np.ravel(y_true)
     y_pred = np.ravel(y_pred)
 
-    # Prepare data for CSV
     data_dict = {'prediction': y_pred, 'label': y_true}
 
-    # Create DataFrame and save
-    df_chatgpt4 = pd.DataFrame(data_dict)
-    df_chatgpt4.to_csv(os.path.join(data_folder, f'bnn_ece_{layer}.csv'), index=False)
+    ece_file = pd.DataFrame(data_dict)
+    ece_file.to_csv(os.path.join(data_folder, f'bnn_ece_{layer}.csv'), index=False)
 
