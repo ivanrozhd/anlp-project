@@ -1,46 +1,67 @@
-# anlp-deep-learning-project
-This is the repository of the course project of Advanced Natural Language Processing and Deep Learning (Autumn 2024) at IT University of Copenhagen.
+# ANLP Deep Learning Project
 
-# Group Name and Members
-Group 8 bilibili: Ivan Rozhdestvenskii and Levente András Wallis 
+This is the repository for the course project of **Advanced Natural Language Processing and Deep Learning** (Autumn 2024) at IT University of Copenhagen.
 
-Following is the structure of the project and steps to run the code:
+---
 
-Repository Structure
-1. bnn/
-Contains the code for the Bayesian Neural Network (BNN) implementation.
-Includes a data/ folder with evaluation results used for Expected Calibration Error (ECE) calculation.
-2. saplma/
-Contains the code for the SAPLMA model implementation.
-Includes a data/ folder with evaluation results used for Expected Calibration Error (ECE) calculation.
-3. data/
-Contains all the relevant data files required for model training and evaluation.
-4. dataset_scripts/
-Contains the scripts for dataset creation based on the provided dataset file (natural_questions_sample.csv).
-5. ece/
-Contains the code for Expected Calibration Error (ECE) calculation.
+## Group Name and Members
 
+**Group 8 - bilibili**  
+- Ivan Rozhdestvenskii  
+- Levente András Wallis  
 
-Datasets
-1. chatgpt4_evaluation.csv
-Contains:
-Questions
-Short answers (ground truth)
-Responses from the pretrained model
-Purpose: Evaluation of model responses.
-2. dataset_hidden_layers.csv
-Contains:
-Questions
-Short answers (ground truth)
-Hidden layer representations (specifically layers 1, 16, and 32)
-Purpose: Used for training purposes.
-3. dataset_logits.csv
-Contains:
-Questions
-Short answers (ground truth)
-Model responses
-Logits of the answers
-Purpose: Used for detailed evaluation and analysis of model confidence.
+---
+
+## Repository Structure
+
+- **`bnn/`**  
+  Contains the code for the **Bayesian Neural Network (BNN)** implementation.  
+  Includes a `data/` folder with evaluation results used for **Expected Calibration Error (ECE)** calculation.
+
+- **`saplma/`**  
+  Contains the code for the **SAPLMA model** implementation.  
+  Includes a `data/` folder with evaluation results used for **Expected Calibration Error (ECE)** calculation.
+
+- **`data/`**  
+  Contains all the relevant data files required for model training and evaluation.
+
+- **`dataset_scripts/`**  
+  Contains the scripts for **dataset creation** based on the provided dataset file (`natural_questions_sample.csv`).
+
+- **`ece/`**  
+  Contains the code for **Expected Calibration Error (ECE)** calculation.
+
+---
+
+## Datasets
+
+### 1. **`chatgpt4_evaluation.csv`**
+   - **Contains**:
+     - Questions  
+     - Short answers (ground truth)  
+     - Responses from the pretrained model  
+   - **Purpose**: Evaluation of model responses.
+
+### 2. **`dataset_hidden_layers.csv`**
+   - **Contains**:
+     - Questions  
+     - Short answers (ground truth)  
+     - Hidden layer representations (specifically layers 1, 16, and 32)  
+   - **Purpose**: Used for training purposes.
+
+### 3. **`dataset_logits.csv`**
+   - **Contains**:
+     - Questions  
+     - Short answers (ground truth)  
+     - Model responses  
+     - Logits of the answers  
+   - **Purpose**: Used for detailed evaluation and analysis of model confidence.
+
+---
+
+## Example Commands
+
+### Dataset Creation
 
 Example command:
 ```shell
