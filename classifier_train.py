@@ -39,7 +39,7 @@ def main( hidden_states_file, labels_file, arc, layer):
     test_loader = DataLoader(test_dataset, batch_size=512)
 
     if arc == "bnn":
-        train_classifier_bnn(classifier, train_loader, optimizer, criterion, epochs=5, device=device)
+        train_classifier_bnn(classifier, train_loader, optimizer, criterion, epochs=85, device=device)
         test_loss, test_accuracy = evaluate_classifier_bnn(classifier, test_loader, criterion, layer, device=device)
         print(f"Test Loss: {test_loss:.4f}")
         print(f"Test Accuracy: {test_accuracy * 100:.2f}%")

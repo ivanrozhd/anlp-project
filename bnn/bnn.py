@@ -10,16 +10,19 @@ import pandas as pd
 
 @variational_estimator
 class BayesianSAPLMA(nn.Module):
-    def __init__(self, input_size):
+    def __init__(self, input_size, dropout=0.2):
         super(BayesianSAPLMA, self).__init__()
 
         self.network = nn.Sequential(
             BayesianLinear(input_size, 256),  
             nn.ReLU(),
+            nn.Dropout(dropout),
             BayesianLinear(256, 128),        
             nn.ReLU(),
+            nn.Dropout(dropout),
             BayesianLinear(128, 64),         
             nn.ReLU(),
+            nn.Dropout(dropout),
             BayesianLinear(64, 1),           
             nn.Sigmoid()
         )
