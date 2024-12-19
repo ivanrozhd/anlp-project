@@ -34,18 +34,22 @@ This is the repository for the course project of **Advanced Natural Language Pro
 ---
 
 ## Datasets
-
-
+###  **`natural_questions_sample.csv`**
+   - **Contains**:
+     - ID
+     - Questions
+     - Short answers (ground truth)  
+   - **Purpose**: Get `meta-llama/Llama-3.1-8B-Instruct` responses
 
 ---
 
-## Example Commands
+## Structure
 
-### Dataset Creation
+### 1) Dataset Creation
 
 Example command:
 ```shell
-python dataset_creation.py  --token gt_dasdasdasdasdsafrgwr --model meta-llama/Llama-3.1-8B-Instruct --filepath data/natural_questions_sample.csv
+python dataset_creation.py  --token your_token --model meta-llama/Llama-3.1-8B-Instruct --filepath data/natural_questions_sample.csv
 ```
 
 ## Output
@@ -73,21 +77,43 @@ python dataset_creation.py  --token gt_dasdasdasdasdsafrgwr --model meta-llama/L
    - **Purpose**: Used for detailed evaluation and analysis of model confidence.
 
 
-### ChatGPT4 Evaluation
-evaluated.csv - a csv file with labels for the responses from chatgpt4 (1 - correct, 0 - incorrect), whether the responses of our `meta-llama/Llama-3.1-8B-Instruct` are correct or incorrect
+### 2) ChatGPT4 Evaluation
 
-### Train a SAPLMA/BayseianSAPLMA model for classification of the questions whether the model is able to answer them
+## Output
+
+### 1. **`evaluated.csv`**
+   - **Contains**:
+     - Questions  
+     - Short answers (ground truth)  
+     - Responses from the pretrained model
+     - Labels (1 - correct, 0 - incorrect)
+   - **Purpose**: Use for training data and for **Expected Calibration Error (ECE)** calculation
+
+
+### 3) Train a SAPLMA/BayseianSAPLMA model for classification of the questions whether the model is able to answer them
 Example command:
 -hidden_state_path - csv file with hidden states
 -labels_file - csv file with labels evaluated by chatgpt4
 -arc - architecture of the model (saplma or bnn)
 -layer - layer of the model (1, 16, 32)
+
 ```shell
 python classifier_train.py  --hidden_states_path dataset_hidden_layers.csv --labels_file evaluated.csv --arc saplma/bnn --layer 1/16/32
 
 ```
 
-# Help method to concatenate logits with labels
+## Output
+
+### 1. **`arc_ece_layer.csv`**
+   - **Contains**:
+     - Predictions of the classifier
+     - Labels (1 - correct, 0 - incorrect)
+   - **Purpose**: Use for **Expected Calibration Error (ECE)** calculation
+
+
+## Output
+
+### 4) Help method to concatenate logits with labels
 
 ```shell
 python logits_label.py  --label_data evaluated.csv  --logits_data dataset_logits.csv 
