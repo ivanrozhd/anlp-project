@@ -126,9 +126,7 @@ python logits_label.py  --label_data evaluated.csv  --logits_data dataset_logits
      - Labels (1 - correct, 0 - incorrect)
    - **Purpose**: Used for **Expected Calibration Error (ECE)** calculation (logits)
 
-### 5) Calculate ECE for the model
-
-returns the estimated calibration error for the model
+### 5) Calculate ECE for the model -  returns the estimated calibration error for the model
 
 Example command:
 ```shell
