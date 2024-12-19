@@ -119,7 +119,7 @@ python logits_label.py  --label_data evaluated.csv  --logits_data dataset_logits
 
 ```
 
-# 5) Calculate ECE for the model
+### 5) Calculate ECE for the model
 
 returns the estimated calibration error for the model
 
@@ -131,6 +131,6 @@ python ece-evaluation.py  --file_data bnn_ece_1.csv
 
 
 ## Output
-### **`ECE Value`**
+### **`ECE Value: number`**
 
 
