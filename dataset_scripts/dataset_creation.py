@@ -1,5 +1,5 @@
 import os
-from transformers import AutoTokenizer, AutoModelForCausalLM
+from transformers import AutoTokenizer, AutoModelForCausalLM, set_seed
 import torch
 import argparse
 from load_data import load_and_prepare_data, create_csv
@@ -23,7 +23,7 @@ def initialize_model(model_name, token):
 
 
 def generate_response(tokenizer, model, question, max_new_tokens=6, layer_step=5):
-
+    set_seed(18)
     # Tokenize the input question and feed them into the model
     inputs = tokenizer(question, return_tensors="pt").to(device)
 
