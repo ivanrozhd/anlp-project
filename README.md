@@ -60,7 +60,7 @@ python dataset_creation.py --token your_token --model meta-llama/Llama-3.1-8B-In
      - Questions  
      - Short answers (ground truth)  
      - Responses from the pretrained model  
-   - **Purpose**: Evaluation of model responses.
+   - **Purpose**: Used for evaluation of model responses.
 
 ### 2. **`dataset_hidden_layers.csv`**
    - **Contains**:
@@ -88,7 +88,7 @@ python dataset_creation.py --token your_token --model meta-llama/Llama-3.1-8B-In
      - Short answers (ground truth)  
      - Responses from the pretrained model
      - Labels (1 - correct, 0 - incorrect)
-   - **Purpose**: Use for training data and for **Expected Calibration Error (ECE)** calculation
+   - **Purpose**: Used for training data and for **Expected Calibration Error (ECE)** calculation
 
 
 ### 3) Train a SAPLMA/BayseianSAPLMA model for classification of the questions whether the model is able to answer them
@@ -109,7 +109,7 @@ python classifier_train.py  --hidden_states_path dataset_hidden_layers.csv --lab
    - **Contains**:
      - Predictions of the classifier
      - Labels (1 - correct, 0 - incorrect)
-   - **Purpose**: Use for **Expected Calibration Error (ECE)** calculation
+   - **Purpose**: Used for **Expected Calibration Error (ECE)** calculation
 
 
 ### 4) Help method to concatenate logits with labels
@@ -118,6 +118,13 @@ python classifier_train.py  --hidden_states_path dataset_hidden_layers.csv --lab
 python logits_label.py  --label_data evaluated.csv  --logits_data dataset_logits.csv 
 
 ```
+
+## Output
+### 1. **`logits_ece.csv`**
+   - **Contains**:
+     - Predictions of the classifier
+     - Labels (1 - correct, 0 - incorrect)
+   - **Purpose**: Used for **Expected Calibration Error (ECE)** calculation (logits)
 
 ### 5) Calculate ECE for the model
 
