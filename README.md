@@ -35,6 +35,21 @@ This is the repository for the course project of **Advanced Natural Language Pro
 
 ## Datasets
 
+
+
+---
+
+## Example Commands
+
+### Dataset Creation
+
+Example command:
+```shell
+python dataset_creation.py  --token gt_dasdasdasdasdsafrgwr --model meta-llama/Llama-3.1-8B-Instruct --filepath data/natural_questions_sample.csv
+```
+
+## Output
+
 ### 1. **`chatgpt4_evaluation.csv`**
    - **Contains**:
      - Questions  
@@ -57,20 +72,11 @@ This is the repository for the course project of **Advanced Natural Language Pro
      - Logits of the answers  
    - **Purpose**: Used for detailed evaluation and analysis of model confidence.
 
----
 
-## Example Commands
+### ChatGPT4 Evaluation
+evaluated.csv - a csv file with labels for the responses from chatgpt4 (1 - correct, 0 - incorrect), whether the responses of our `meta-llama/Llama-3.1-8B-Instruct` are correct or incorrect
 
-### Dataset Creation
-
-Example command:
-```shell
-python dataset_creation.py  --token gt_dasdasdasdasdsafrgwr --model meta-llama/Llama-3.1-8B-Instruct --filepath data/natural_questions_sample.csv
-```
-
-evaluated.csv - a csv file with labels for the responses from chatgpt4 (1 - correct, 0 - incorrect)
-
-# Train a SAPLMA/BayseianSAPLMA model for classification of the questions whether the model is able to answer them
+### Train a SAPLMA/BayseianSAPLMA model for classification of the questions whether the model is able to answer them
 Example command:
 -hidden_state_path - csv file with hidden states
 -labels_file - csv file with labels evaluated by chatgpt4
