@@ -34,23 +34,24 @@ This is the repository for the course project of **Advanced Natural Language Pro
 ---
 
 ## Datasets
-###  **`natural_questions_sample.csv`**
+
+### **`natural_questions_sample.csv`**
    - **Contains**:
-     - ID
-     - Questions
+     - ID  
+     - Questions  
      - Short answers (ground truth)  
-   - **Purpose**: Get `meta-llama/Llama-3.1-8B-Instruct` responses
+   - **Purpose**: Used to get responses from `meta-llama/Llama-3.1-8B-Instruct`.
 
 ---
 
-## Structure
+## Workflow
 
 ### 1) Dataset Creation
 
-Example command:
+**Example Command**:
 ```shell
-python dataset_creation.py  --token your_token --model meta-llama/Llama-3.1-8B-Instruct --filepath data/natural_questions_sample.csv
-```
+python dataset_creation.py --token your_token --model meta-llama/Llama-3.1-8B-Instruct --filepath data/natural_questions_sample.csv
+
 
 ## Output
 
@@ -111,8 +112,6 @@ python classifier_train.py  --hidden_states_path dataset_hidden_layers.csv --lab
    - **Purpose**: Use for **Expected Calibration Error (ECE)** calculation
 
 
-## Output
-
 ### 4) Help method to concatenate logits with labels
 
 ```shell
@@ -120,7 +119,7 @@ python logits_label.py  --label_data evaluated.csv  --logits_data dataset_logits
 
 ```
 
-# Calculate ECE for the model
+# 5) Calculate ECE for the model
 
 returns the estimated calibration error for the model
 
@@ -129,5 +128,9 @@ Example command:
 python ece-evaluation.py  --file_data bnn_ece_1.csv 
 
 ```
+
+
+## Output
+### **`ECE Value`**
 
 
