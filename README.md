@@ -6,16 +6,41 @@ Group 8 bilibili: Ivan Rozhdestvenskii and Levente András Wallis
 
 Following is the structure of the project and steps to run the code:
 
-bnn - contains the code for Bayesian Neural Network and data folder with evluation results for ECE calculation 
-saplma - contains the code for SAPLMA and data folder with evluation results for ECE calculation
-data - contains the data files
-dataset_scripts - contains the scripts for dataset creation based on the dataset provided (natural_questions_sample.csv)
-ece - contains the code for ECE calculation
+Repository Structure
+1. bnn/
+Contains the code for the Bayesian Neural Network (BNN) implementation.
+Includes a data/ folder with evaluation results used for Expected Calibration Error (ECE) calculation.
+2. saplma/
+Contains the code for the SAPLMA model implementation.
+Includes a data/ folder with evaluation results used for Expected Calibration Error (ECE) calculation.
+3. data/
+Contains all the relevant data files required for model training and evaluation.
+4. dataset_scripts/
+Contains the scripts for dataset creation based on the provided dataset file (natural_questions_sample.csv).
+5. ece/
+Contains the code for Expected Calibration Error (ECE) calculation.
 
-# Create three datasets: chatgpt4_evaluation.csv, dataset_hidden_layers.csv and dataset_logits.csv
-chatgpt4_evaluation.csv - contains the questions, short answers (gt) and responses from the pretrained model - for evaluation purposes
-dataset_hidden_layers.csv - contains the questions, short answers (gt), hidden layers representations for training purposes - specifically layers 1, 16, 32
-dataset_logits.csv - contains questions, short_answers, responses, logits_of_answers
+
+Datasets
+1. chatgpt4_evaluation.csv
+Contains:
+Questions
+Short answers (ground truth)
+Responses from the pretrained model
+Purpose: Evaluation of model responses.
+2. dataset_hidden_layers.csv
+Contains:
+Questions
+Short answers (ground truth)
+Hidden layer representations (specifically layers 1, 16, and 32)
+Purpose: Used for training purposes.
+3. dataset_logits.csv
+Contains:
+Questions
+Short answers (ground truth)
+Model responses
+Logits of the answers
+Purpose: Used for detailed evaluation and analysis of model confidence.
 
 Example command:
 ```shell
